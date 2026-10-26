@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0e10">
+<meta property="og:title" content="Dein eigener KI-Butler · E-Book">
+<meta property="og:description" content="Start am 1. November 2026 um 0:00 Uhr. Jetzt auf die Warteliste.">
+<link rel="icon" href="icon.png">
+<title>Butler AI Warteliste</title>
+<meta name="description" content="Dein eigener KI-Butler: das E-Book. Start am 1. November 2026 um 0:00 Uhr. Jetzt auf die Warteliste.">
+<style>
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(schriften/instrument-serif-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(schriften/instrument-serif-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:300;font-display:swap;src:url(schriften/hanken-grotesk-latin-300-normal.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:400;font-display:swap;src:url(schriften/hanken-grotesk-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:500;font-display:swap;src:url(schriften/hanken-grotesk-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:600;font-display:swap;src:url(schriften/hanken-grotesk-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(schriften/jetbrains-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(schriften/jetbrains-mono-latin-500-normal.woff2) format("woff2")}
+/* Layout: dunkler Salon. Links die Zusage und die Liste, rechts die schwebenden Ringe; darunter Belege, Inhalt, zweiter Eintrag. */
+:root {
+  --grund: #0d0e10;
+  --flaeche: #16171b;
+  --linie: rgba(217, 192, 139, .18);
+  --gold: #d9c08b;
+  --hell: #f4e6c2;
+  --text: #cfc6b4;
+  --leise: #8f8673;
+  --matt: #7d6f52;
+  --fehler: #e8a598;
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --sans: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--grund); }
+body {
+  margin: 0; background: radial-gradient(ellipse 80% 60% at 75% 10%, #1c1d22 0%, var(--grund) 60%) var(--grund);
+  color: var(--text); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+.rahmen { max-width: 1120px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.etikett { font-family: var(--mono); font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: var(--matt); }
+a { color: var(--gold); }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* Kopf */
+header .rahmen { display: flex; justify-content: space-between; align-items: center; padding-block: 22px; }
+.marke { font-family: var(--mono); font-size: 13px; letter-spacing: .42em; color: var(--gold); text-decoration: none; }
+.kopf-link { font-size: 14px; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--linie); padding-bottom: 2px; }
+
+/* Erster Blick */
+.held .rahmen { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 40px; align-items: center; padding-block: 40px 72px; }
+.held h1 { font-family: var(--display); font-weight: 400; font-size: clamp(52px, 8vw, 96px); line-height: .98; letter-spacing: -.01em; color: var(--hell); margin: 18px 0 22px; text-wrap: balance; }
+.held h1 em { color: var(--gold); }
+.zusage { font-size: 19px; color: var(--text); max-width: 34em; margin: 0 0 30px; }
+.ringe { width: 100%; aspect-ratio: 1; max-width: 520px; justify-self: center; }
+.ringe canvas { width: 100%; height: 100%; display: block; }
+
+/* Countdown */
+.uhr { display: flex; gap: 10px; margin: 0 0 28px; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.uhr div { background: var(--flaeche); border: 1px solid var(--linie); border-radius: 12px; padding: 10px 12px; min-width: 70px; text-align: center; }
+.uhr b { display: block; font-size: 28px; font-weight: 500; color: var(--hell); line-height: 1.1; }
+.uhr span { font-size: 10px; letter-spacing: .22em; color: var(--matt); }
+.uhr-text { font-size: 14px; color: var(--leise); margin: -16px 0 26px; }
+
+/* Formular */
+form { display: grid; gap: 12px; max-width: 460px; }
+.zeile { display: flex; gap: 10px; flex-wrap: wrap; }
+input[type=email], input[type=text] {
+  flex: 1 1 200px; min-width: 0; font: inherit; font-size: 16px; color: var(--hell); background: var(--flaeche);
+  border: 1px solid var(--linie); border-radius: 12px; padding: 14px 16px;
+}
+input::placeholder { color: var(--leise); }
+button {
+  font: inherit; font-weight: 600; font-size: 16px; color: var(--grund); background: var(--gold); border: 0; border-radius: 12px;
+  padding: 14px 22px; cursor: pointer; transition: background .2s;
+}
+button:hover { background: var(--hell); }
+.einwilligung { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--leise); line-height: 1.5; }
+.einwilligung input { margin-top: 3px; accent-color: var(--gold); width: 16px; height: 16px; flex: none; }
+.falle { position: absolute; left: -9999px; }
+.meldung { font-size: 14px; min-height: 1.5em; margin: 0; }
+.meldung.gut { color: var(--gold); }
+.meldung.schlecht { color: var(--fehler); }
+
+/* Abschnitte */
+section.band { border-top: 1px solid var(--linie); }
+section.band .rahmen { padding-block: 72px; }
+h2 { font-family: var(--display); font-weight: 400; font-size: clamp(36px, 5vw, 54px); line-height: 1.05; color: var(--hell); margin: 12px 0 18px; text-wrap: balance; }
+.einleitung { max-width: 38em; margin: 0 0 36px; }
+
+/* Belege */
+.belege { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--linie); border: 1px solid var(--linie); border-radius: 18px; overflow: hidden; }
+.belege li { background: var(--grund); padding: 24px 22px; min-width: 0; }
+.belege h3 { font-family: var(--sans); font-size: 18px; font-weight: 500; color: var(--hell); margin: 0 0 8px; }
+.belege p { font-size: 15px; margin: 0 0 12px; }
+.beleg { font-family: var(--mono); font-size: 12px; color: var(--gold); }
+
+/* Inhalt */
+.kapitel { list-style: none; counter-reset: k; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; }
+.kapitel li { counter-increment: k; display: grid; grid-template-columns: 44px minmax(0, 1fr); padding: 16px 0; border-bottom: 1px solid var(--linie); }
+.kapitel li::before { content: counter(k, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--matt); padding-top: 4px; }
+.kapitel b { display: block; color: var(--hell); font-weight: 500; }
+.kapitel span { font-size: 15px; color: var(--leise); }
+
+/* Zwei Wege */
+.wege { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.weg { background: var(--flaeche); border: 1px solid var(--linie); border-radius: 18px; padding: 28px; }
+.weg h3 { font-family: var(--display); font-weight: 400; font-size: 30px; color: var(--hell); margin: 6px 0 10px; }
+.weg p { margin: 0; font-size: 16px; }
+
+/* Schluss */
+.schluss .rahmen { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 460px); gap: 40px; align-items: end; }
+footer { border-top: 1px solid var(--linie); }
+footer .rahmen { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-block: 28px; font-size: 13px; color: var(--leise); }
+footer a { color: var(--leise); }
+
+@media (max-width: 860px) {
+  .held .rahmen, .schluss .rahmen { grid-template-columns: 1fr; }
+  .ringe { max-width: 320px; order: -1; margin-bottom: -10px; }
+  .kapitel, .wege { grid-template-columns: 1fr; }
+  section.band .rahmen { padding-block: 56px; }
+}
+@media (max-width: 420px) { .uhr div { min-width: 0; flex: 1; padding: 8px 6px; } .uhr b { font-size: 22px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="rahmen">
+    <a class="marke" href="#">BUTLER AI</a>
+    <a class="kopf-link" href="#liste">Auf die Warteliste</a>
+  </div>
+</header>
+
+<main>
+  <section class="held">
+    <div class="rahmen">
+      <div>
+        <div class="etikett">E-Book · Start am 1. November 2026 um 0:00 Uhr</div>
+        <h1>Dein eigener <em>KI-Butler.</em></h1>
+        <p class="zusage">Wie du dir einen Assistenten baust, der deine Mails sortiert, Fristen im Blick behält und Entwürfe schreibt. Den letzten Knopf drückst du. Alles im Buch läuft schon jeden Tag in meinem eigenen Alltag.</p>
+        <div class="uhr" id="uhr" aria-live="polite">
+          <div><b id="u-t">–</b><span>TAGE</span></div>
+          <div><b id="u-s">–</b><span>STD</span></div>
+          <div><b id="u-m">–</b><span>MIN</span></div>
+          <div><b id="u-x">–</b><span>SEK</span></div>
+        </div>
+        <p class="uhr-text" id="uhr-text">Bis zum Start in der Nacht vom 31. Oktober auf den 1. November.</p>
+        <form id="liste" class="liste-form" novalidate>
+          <div class="zeile">
+            <input id="f-name" name="VORNAME" type="text" placeholder="Vorname (freiwillig)" autocomplete="given-name">
+            <input id="f-mail" name="EMAIL" type="email" placeholder="Deine E-Mail-Adresse" autocomplete="email" required>
+          </div>
+          <label class="einwilligung"><input id="f-ok" type="checkbox" required> <span>Ja, ich möchte zum Start des E-Books und zu Butler AI per E-Mail informiert werden. Abmelden geht jederzeit mit einem Klick. Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
+          <input class="falle" id="f-falle" name="email_address_check" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button id="f-los" type="submit">Auf die Warteliste</button>
+          <p class="meldung" id="f-meldung" role="status"></p>
+        </form>
+      </div>
+      <div class="ringe" aria-hidden="true"><canvas id="ringe"></canvas></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="rahmen">
+      <div class="etikett">Belege aus dem Alltag</div>
+      <h2>Was mein Butler schon erledigt</h2>
+      <p class="einleitung">Kein Versprechen aus dem Prospekt. Das hier macht mein eigener KI-Butler jeden Tag, und genau das lernst du im Buch nachzubauen.</p>
+      <ul class="belege">
+        <li><h3>Rücksendung in einem Satz</h3><p>Ich sage „Schick das Paket zurück“. Er holt das Etikett und legt mir den QR-Code in den Chat.</p><span class="beleg">Beleg: QR-Code im Chat</span></li>
+        <li><h3>Posteingang sortiert</h3><p>Rechnungen, Behörden, Lieferanten, Newsletter: jede Mail landet im richtigen Ordner. Gelöscht wird nichts.</p><span class="beleg">Beleg: Ordner im Postfach</span></li>
+        <li><h3>Briefing am Morgen</h3><p>Termine, Fristen und die wichtigen Mails in fünf Sätzen, gesprochen oder als Nachricht.</p><span class="beleg">Beleg: Termine aus dem Kalender</span></li>
+        <li><h3>Abos und Fristen im Blick</h3><p>Er findet laufende Verträge in Mails und Kontoauszügen und warnt 14, 7 und 1 Tag vor der Kündigungsfrist.</p><span class="beleg">Beleg: Liste mit Fristen</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="rahmen">
+      <div class="etikett">Inhalt der Kompakt-Ausgabe</div>
+      <h2>Vom ersten Gedanken bis zum Butler, der arbeitet</h2>
+      <ol class="kapitel">
+        <li><div><b>Was ein KI-Assistent ist und was nicht</b><span>Die goldene Regel: Erfolg zählt nur mit Beleg.</span></div></li>
+        <li><div><b>Ziel und Aufgaben festlegen</b><span>Drei Tage Strichliste, dann weißt du, was er übernehmen soll.</span></div></li>
+        <li><div><b>Das Gehirn wählen</b><span>Welches Sprachmodell, was es kostet, wie du ein Limit setzt.</span></div></li>
+        <li><div><b>Den Charakter schreiben</b><span>Eine Regeldatei, damit er klingt wie dein Butler und nicht wie ein Chatfenster.</span></div></li>
+        <li><div><b>Das Gedächtnis aufbauen</b><span>Was er sich merken darf und was nie hinein gehört.</span></div></li>
+        <li><div><b>Die Hände: Werkzeuge</b><span>Mail, Kalender, Dateien und der Freigabe-Knopf vor jedem Senden.</span></div></li>
+        <li><div><b>Kanäle, über die du ihn erreichst</b><span>Vom Handy aus, und er meldet sich von selbst, wenn es wichtig ist.</span></div></li>
+        <li><div><b>Betrieb, Kosten und Vertrauen</b><span>Damit er läuft, bezahlbar bleibt und du ihm vertrauen kannst.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="rahmen">
+      <div class="etikett">Für dich gemacht</div>
+      <h2>Zwei Wege, du gehst einen</h2>
+      <div class="wege">
+        <div class="weg"><div class="etikett">Weg A</div><h3>Ohne Code, an einem Abend</h3><p>Du richtest eine KI-App mit deinem Postfach, Kalender und deinen Dateien ein und gibst ihr deine Regeln. Kein Terminal, keine Technik.</p></div>
+        <div class="weg"><div class="etikett">Weg B</div><h3>Mit wenig Code, an einem Wochenende</h3><p>Ein kleines Programm auf deinem Rechner, das du über Telegram erreichst. Die Vorlagen kopierst du einfach. Dir gehört danach alles.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band schluss">
+    <div class="rahmen">
+      <div>
+        <div class="etikett">Start am 1. November, 0:00 Uhr</div>
+        <h2>Sei dabei, wenn es losgeht</h2>
+        <p class="einleitung" style="margin-bottom:0">Wer auf der Warteliste steht, bekommt um Mitternacht als Erstes die Nachricht mit dem Link zum E-Book.</p>
+      </div>
+      <form id="liste2" class="liste-form" novalidate>
+        <div class="zeile">
+          <input id="f2-mail" name="EMAIL" type="email" placeholder="Deine E-Mail-Adresse" autocomplete="email" required>
+          <button id="f2-los" type="submit">Eintragen</button>
+        </div>
+        <label class="einwilligung"><input id="f2-ok" type="checkbox" required> <span>Ja, ich möchte zum Start informiert werden. Abmelden jederzeit. <a href="datenschutz.html">Datenschutz</a></span></label>
+        <input class="falle" id="f2-falle" name="email_address_check" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="meldung" id="f2-meldung" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="rahmen">
+    <span>Butler AI ist eine Marke der NOVA ONE · München</span>
+    <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+  </div>
+</footer>
+
+<script>
+// ---- Einstellungen: hier die Formular-Adresse aus Brevo eintragen (Formular > Einbetten > "action" des Formulars)
+const BREVO_FORMULAR = "https://4b991456.sibforms.com/serve/MUIFAMG2Og-OtyH65ZrKAqo5RyeT6ImWHjdQyj6_BaHOXNEq2KAt6lNrrQ6N6ok9K7crN7kf7JFfTfaBc9e1G4CwF7qjRZY46m6-S8-nXlORiVvivEKX1mhjSd5aYMw3jY5gFaKAE9Yg6uyYIqXCDgc2Y3oY4WGC_d3NEctvfi7TeTUQs3gS9vQbPsTNS68hXO3zuhnUtkl1KLGIqA==";
+const DOPPEL_OPT_IN = false;   // auf true, sobald in Brevo die Double-Opt-in-Mail aktiv ist
+const START = Date.UTC(2026, 9, 31, 23, 0, 0);    // 1. November 2026, 0:00 Uhr in Deutschland (Winterzeit, UTC+1)
+
+// ---- Countdown
+function zwei(n) { return String(n).padStart(2, "0"); }
+function uhr() {
+  let rest = Math.max(0, START - Date.now());
+  const t = Math.floor(rest / 864e5); rest -= t * 864e5;
+  const s = Math.floor(rest / 36e5); rest -= s * 36e5;
+  const m = Math.floor(rest / 6e4); rest -= m * 6e4;
+  const x = Math.floor(rest / 1e3);
+  document.getElementById("u-t").textContent = t;
+  document.getElementById("u-s").textContent = zwei(s);
+  document.getElementById("u-m").textContent = zwei(m);
+  document.getElementById("u-x").textContent = zwei(x);
+  if (START - Date.now() <= 0) document.getElementById("uhr-text").textContent = "Das E-Book ist da. Die Mail mit dem Link ist unterwegs.";
+}
+uhr(); setInterval(uhr, 1000);
+
+// ---- Warteliste (Brevo, Double-Opt-In)
+function anmelden(form, mail, ok, falle, meldung, name) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const m = document.getElementById(meldung); m.className = "meldung";
+    const adresse = document.getElementById(mail).value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(adresse)) { m.textContent = "Bitte gib eine gültige E-Mail-Adresse ein."; m.classList.add("schlecht"); return; }
+    if (!document.getElementById(ok).checked) { m.textContent = "Bitte setz das Häkchen, damit wir dir schreiben dürfen."; m.classList.add("schlecht"); return; }
+    if (document.getElementById(falle).value) return;
+    if (!BREVO_FORMULAR) { m.textContent = "Die Warteliste öffnet in Kürze. Schau bald wieder vorbei."; m.classList.add("gut"); return; }
+    const daten = new FormData();
+    daten.append("EMAIL", adresse);
+    if (name) daten.append("VORNAME", document.getElementById(name).value.trim());
+    daten.append("OPT_IN", "1"); daten.append("locale", "de"); daten.append("email_address_check", "");
+    try {
+      await fetch(BREVO_FORMULAR, { method: "POST", body: daten, mode: "no-cors" });
+      m.textContent = DOPPEL_OPT_IN ? "Fast geschafft: Bitte bestätige deine Adresse über den Link in der Mail, die gerade unterwegs ist." : "Du stehst auf der Warteliste. Am 1. November um 0 Uhr bekommst du als Erste:r Bescheid."; m.classList.add("gut");
+      form.reset();
+    } catch (err) {
+      m.textContent = "Das hat gerade nicht geklappt. Prüf deine Verbindung und versuch es noch einmal."; m.classList.add("schlecht");
+    }
+  });
+}
+anmelden(document.getElementById("liste"), "f-mail", "f-ok", "f-falle", "f-meldung", "f-name");
+anmelden(document.getElementById("liste2"), "f2-mail", "f2-ok", "f2-falle", "f2-meldung", null);
+
+// ---- Schwebende Ringe
+(function () {
+  const cv = document.getElementById("ringe"), cx = cv.getContext("2d");
+  const ruhig = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const R = [[1.00, 1.25, 0.00, 0.00, 0.17, 1.6], [0.86, 0.35, 1.10, 0.13, 0.00, 1.2], [0.72, 1.45, 0.80, -0.09, 0.11, 1.0], [0.58, 0.70, 1.40, 0.16, -0.07, 0.9], [0.42, 1.10, 0.30, -0.21, 0.14, 0.8]];
+  let W = 0, D = Math.min(devicePixelRatio || 1, 2), zeit = 0, letzt = performance.now();
+  function groesse() { const b = cv.getBoundingClientRect(); W = b.width; cv.width = W * D; cv.height = W * D; cx.setTransform(D, 0, 0, D, 0, 0); }
+  addEventListener("resize", groesse); groesse();
+  function bild(j) {
+    const dt = Math.max(0, Math.min(.05, (j - letzt) / 1000)); letzt = j; if (!ruhig) zeit += dt * .35;
+    cx.clearRect(0, 0, W, W);
+    const m = W / 2, r0 = W * .34, atem = 1 + Math.sin(j / 1000 * 1.3) * .015;
+    const g = cx.createRadialGradient(m, m, 0, m, m, r0 * .5);
+    g.addColorStop(0, "rgba(244,230,194,.55)"); g.addColorStop(.3, "rgba(217,192,139,.18)"); g.addColorStop(1, "rgba(217,192,139,0)");
+    cx.fillStyle = g; cx.beginPath(); cx.arc(m, m, r0 * .5 * atem, 0, 7); cx.fill();
+    R.forEach((q, n) => {
+      const a = q[1] + zeit * q[3] * 6 + Math.sin(zeit * .7 + n) * .15, b = q[2] + zeit * q[4] * 6 + Math.cos(zeit * .5 + n) * .15;
+      const ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(b), sb = Math.sin(b), rr = r0 * q[0], P = 110, p = [];
+      for (let i = 0; i <= P; i++) { const t = i / P * Math.PI * 2, x = Math.cos(t) * rr, y = Math.sin(t) * rr; p.push([m + x * cb + y * sa * sb, m + y * ca, (-x * sb + y * sa * cb) / rr]); }
+      for (let i = 0; i < P; i++) { const d = (p[i][2] + 1) / 2; cx.strokeStyle = `rgba(${d > .5 ? "244,230,194" : "217,192,139"},${(.12 + d * .7) * .8})`; cx.lineWidth = q[5] * (.6 + d * .9); cx.beginPath(); cx.moveTo(p[i][0], p[i][1]); cx.lineTo(p[i + 1][0], p[i + 1][1]); cx.stroke(); }
+      const k = p[((Math.floor(((zeit * (1.5 + n * .4)) % (Math.PI * 2)) / (Math.PI * 2) * P) % P) + P) % P], kd = (k[2] + 1) / 2;
+      cx.fillStyle = `rgba(244,230,194,${.25 + kd * .7})`; cx.beginPath(); cx.arc(k[0], k[1], 1.5 + kd * 2, 0, 7); cx.fill();
+    });
+    cx.strokeStyle = "rgba(125,111,82,.45)"; cx.lineWidth = 1;
+    for (let i = 0; i < 72; i++) { const w = i / 72 * Math.PI * 2 + zeit * .08, ra = r0 * 1.28, l = i % 6 ? 4 : 10; cx.beginPath(); cx.moveTo(m + Math.cos(w) * ra, m + Math.sin(w) * ra); cx.lineTo(m + Math.cos(w) * (ra + l), m + Math.sin(w) * (ra + l)); cx.stroke(); }
+    requestAnimationFrame(bild);
+  }
+  requestAnimationFrame(bild);
+})();
+</script>
+
+</body>
+</html>
