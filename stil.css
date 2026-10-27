@@ -1,0 +1,68 @@
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(schriften/instrument-serif-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(schriften/instrument-serif-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:400;font-display:swap;src:url(schriften/hanken-grotesk-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:500;font-display:swap;src:url(schriften/hanken-grotesk-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:600;font-display:swap;src:url(schriften/hanken-grotesk-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(schriften/jetbrains-mono-latin-400-normal.woff2) format("woff2")}
+:root{--grund:#0d0e10;--flaeche:#16171b;--linie:rgba(217,192,139,.18);--gold:#d9c08b;--hell:#f4e6c2;--text:#cfc6b4;--leise:#8f8673;--matt:#7d6f52;--fehler:#e8a598;
+  --display:"Instrument Serif","Iowan Old Style",Georgia,serif;--sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;--mono:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--grund)}
+body{margin:0;background:radial-gradient(ellipse 80% 60% at 75% 0%,#1c1d22 0%,var(--grund) 60%) var(--grund);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--gold)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.rahmen{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.etikett{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--matt)}
+header .rahmen{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:22px;flex-wrap:wrap}
+.marke{font-family:var(--mono);font-size:13px;letter-spacing:.42em;color:var(--gold);text-decoration:none}
+nav{display:flex;gap:22px;flex-wrap:wrap}
+nav a{font-size:14px;color:var(--text);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px}
+nav a:hover,nav a[aria-current]{border-color:var(--gold);color:var(--hell)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(46px,7vw,84px);line-height:1;letter-spacing:-.01em;color:var(--hell);margin:16px 0 20px;text-wrap:balance}
+h1 em,h2 em{color:var(--gold)}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(34px,4.6vw,50px);line-height:1.05;color:var(--hell);margin:10px 0 16px;text-wrap:balance}
+h3{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.1;color:var(--hell);margin:8px 0 10px}
+.einleitung{font-size:19px;max-width:36em;margin:0 0 32px}
+section{border-top:1px solid var(--linie)}
+section.erst{border-top:0}
+section .rahmen{padding-block:64px}
+section.erst .rahmen{padding-block:36px 64px}
+.bereiche{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.karte{background:var(--flaeche);border:1px solid var(--linie);border-radius:18px;padding:28px;min-width:0;display:flex;flex-direction:column}
+.karte p{margin:0 0 12px;font-size:16px}
+.karte ul{margin:0 0 16px;padding-left:18px;font-size:15px}
+.karte li{margin-bottom:5px}
+.karte .unten{margin-top:auto;padding-top:12px}
+.preis{font-family:var(--display);font-size:46px;line-height:1;color:var(--gold);margin:6px 0 4px}
+.preis small{font-family:var(--sans);font-size:14px;color:var(--leise)}
+.steuer{font-size:12px;color:var(--leise);margin:0 0 14px}
+.bald{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--matt);border:1px solid var(--linie);border-radius:999px;padding:4px 10px;align-self:flex-start}
+.produkte{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+a.kauf,button.kauf{display:inline-flex;align-items:center;gap:10px;font:inherit;font-weight:600;font-size:17px;color:var(--grund);background:var(--gold);border:0;border-radius:12px;padding:15px 24px;text-decoration:none;cursor:pointer;transition:background .2s}
+a.kauf:hover,button.kauf:hover{background:var(--hell)}
+a.kauf[aria-disabled=true],button.kauf:disabled{background:#3a3628;color:var(--leise);cursor:not-allowed}
+a.zweit{display:inline-flex;font-weight:500;font-size:16px;color:var(--hell);border:1px solid var(--linie);border-radius:12px;padding:14px 22px;text-decoration:none}
+a.zweit:hover{border-color:var(--gold)}
+.zustimmung{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--leise);line-height:1.5;margin:0 0 14px}
+.zustimmung input{margin-top:3px;accent-color:var(--gold);width:16px;height:16px;flex:none}
+.hinweis{font-size:13px;color:var(--leise);margin:10px 0 0}
+.schritte{list-style:none;counter-reset:s;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.schritte li{counter-increment:s;border-top:1px solid var(--linie);padding-top:16px}
+.schritte li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--gold);display:block;margin-bottom:8px}
+.schritte b{display:block;color:var(--hell);font-weight:500;margin-bottom:4px}
+.schritte span{font-size:15px;color:var(--leise)}
+.fragen details{border-bottom:1px solid var(--linie);padding:16px 0}
+.fragen summary{cursor:pointer;color:var(--hell);font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.fragen summary::-webkit-details-marker{display:none}
+.fragen summary::after{content:"+";font-family:var(--mono);color:var(--gold)}
+.fragen details[open] summary::after{content:"–"}
+.fragen p{margin:10px 0 0;font-size:16px;max-width:760px}
+.text main{max-width:760px;margin:0 auto;padding:20px max(20px,env(safe-area-inset-left,0px)) 80px max(20px,env(safe-area-inset-right,0px))}
+.text h1{font-size:48px;margin:20px 0}
+.text h2{font-family:var(--sans);font-size:17px;font-weight:600;color:var(--hell);margin:32px 0 8px}
+.text p,.text li{font-size:16px}
+footer{border-top:1px solid var(--linie)}
+footer .rahmen{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-block:28px;font-size:13px;color:var(--leise)}
+footer a{color:var(--leise)}
+@media (max-width:860px){.bereiche,.produkte{grid-template-columns:1fr}.schritte{grid-template-columns:1fr 1fr}section .rahmen{padding-block:48px}}
+@media (max-width:480px){.schritte{grid-template-columns:1fr}nav{gap:16px}}
