@@ -80,6 +80,13 @@ button {
   padding: 14px 22px; cursor: pointer; transition: background .2s;
 }
 button:hover { background: var(--hell); }
+.nach { display: none !important; }
+body.gestartet .vor { display: none !important; }
+body.gestartet .nach { display: revert !important; }
+body.gestartet a.kauf.nach { display: inline-flex !important; }
+a.kauf { align-items: center; gap: 10px; font-weight: 600; font-size: 17px; color: var(--grund); background: var(--gold); border-radius: 12px; padding: 16px 26px; text-decoration: none; transition: background .2s; }
+a.kauf:hover { background: var(--hell); }
+.kauf-info { font-size: 13px; color: var(--leise); margin-top: 12px; }
 .einwilligung { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--leise); line-height: 1.5; }
 .einwilligung input { margin-top: 3px; accent-color: var(--gold); width: 16px; height: 16px; flex: none; }
 .falle { position: absolute; left: -9999px; }
@@ -170,7 +177,8 @@ footer a { color: var(--leise); }
 <header>
   <div class="rahmen">
     <a class="marke" href="#">BUTLER AI</a>
-    <a class="kopf-link" href="#liste">Auf die Warteliste</a>
+    <a class="kopf-link vor" href="#liste">Auf die Warteliste</a>
+    <a class="kopf-link nach" href="https://payhip.com/b/UqmA0">Jetzt kaufen</a>
   </div>
 </header>
 
@@ -178,17 +186,20 @@ footer a { color: var(--leise); }
   <section class="held">
     <div class="rahmen">
       <div>
-        <div class="etikett">E-Book · Start am 1. November 2026 um 0:00 Uhr</div>
+        <div class="etikett vor">E-Book · Start am 1. November 2026 um 0:00 Uhr</div>
+        <div class="etikett nach">E-Book · Jetzt erhältlich</div>
         <h1>Dein eigener <em>KI-Butler.</em></h1>
         <p class="zusage">Wie du dir einen Assistenten baust, der deine Mails sortiert, Fristen im Blick behält und Entwürfe schreibt. Den letzten Knopf drückst du. Alles im Buch läuft schon jeden Tag in meinem eigenen Alltag.</p>
-        <div class="uhr" id="uhr" aria-live="polite">
+        <div class="nach" style="margin-top:28px"><a class="kauf nach" href="https://payhip.com/b/UqmA0">Jetzt kaufen · 27 €</a>
+          <p class="kauf-info">Sofort als PDF · bezahlen mit PayPal oder Karte · Warteliste: 19 € mit dem Code aus deiner Start-Mail</p></div>
+        <div class="uhr vor" id="uhr" aria-live="polite">
           <div><b id="u-t">–</b><span>TAGE</span></div>
           <div><b id="u-s">–</b><span>STD</span></div>
           <div><b id="u-m">–</b><span>MIN</span></div>
           <div><b id="u-x">–</b><span>SEK</span></div>
         </div>
-        <p class="uhr-text" id="uhr-text">Bis zum Start in der Nacht vom 31. Oktober auf den 1. November.</p>
-        <form id="liste" class="liste-form" novalidate>
+        <p class="uhr-text vor" id="uhr-text">Bis zum Start in der Nacht vom 31. Oktober auf den 1. November.</p>
+        <form id="liste" class="liste-form vor" novalidate>
           <div class="zeile">
             <input id="f-name" name="VORNAME" type="text" placeholder="Vorname (freiwillig)" autocomplete="given-name">
             <input id="f-mail" name="EMAIL" type="email" placeholder="Deine E-Mail-Adresse" autocomplete="email" required>
@@ -263,6 +274,7 @@ footer a { color: var(--leise); }
         <div class="fakt"><div class="etikett">Das E-Book</div><h3>Kompakt-Ausgabe</h3>
           <div class="preis">27 € <small>einmalig</small></div>
           <p>Für alle auf der Warteliste in den ersten 72 Stunden nach dem Start: <b>19 €</b>.</p>
+          <p class="nach"><a class="kauf nach" href="https://payhip.com/b/UqmA0">Jetzt kaufen</a></p>
           <p>PDF mit 46 Seiten im A5-Format und 6 Vorlagen zum Kopieren, sofort nach dem Kauf zum Herunterladen.</p></div>
         <div class="fakt"><div class="etikett">Voraussetzungen</div><h3>Was du brauchst</h3>
           <ul>
@@ -309,11 +321,15 @@ footer a { color: var(--leise); }
   <section class="band schluss">
     <div class="rahmen">
       <div>
-        <div class="etikett">Start am 1. November, 0:00 Uhr</div>
+        <div class="vor"><div class="etikett">Start am 1. November, 0:00 Uhr</div>
         <h2>Sei dabei, wenn es losgeht</h2>
-        <p class="einleitung" style="margin-bottom:0">Wer auf der Warteliste steht, bekommt um Mitternacht als Erstes die Nachricht mit dem Link zum E-Book.</p>
+        <p class="einleitung" style="margin-bottom:0">Wer auf der Warteliste steht, bekommt um Mitternacht als Erstes die Nachricht mit dem Link zum E-Book.</p></div>
+        <div class="nach"><div class="etikett">Jetzt erhältlich</div>
+        <h2>Bau dir heute Abend deinen Butler</h2>
+        <p class="einleitung" style="margin-bottom:0">46 Seiten, 6 Vorlagen, ohne Programmieren. Sofort als PDF.</p></div>
       </div>
-      <form id="liste2" class="liste-form" novalidate>
+      <div class="nach"><a class="kauf nach" href="https://payhip.com/b/UqmA0">Jetzt kaufen · 27 €</a></div>
+      <form id="liste2" class="liste-form vor" novalidate>
         <div class="zeile">
           <input id="f2-mail" name="EMAIL" type="email" placeholder="Deine E-Mail-Adresse" autocomplete="email" required>
           <button id="f2-los" type="submit">Eintragen</button>
@@ -351,7 +367,7 @@ function uhr() {
   document.getElementById("u-s").textContent = zwei(s);
   document.getElementById("u-m").textContent = zwei(m);
   document.getElementById("u-x").textContent = zwei(x);
-  if (START - Date.now() <= 0) document.getElementById("uhr-text").textContent = "Das E-Book ist da. Die Mail mit dem Link ist unterwegs.";
+  if (START - Date.now() <= 0 || /vorschau=start/.test(location.search)) document.body.classList.add("gestartet");   // ab Mitternacht: Kaufen statt Warteliste
 }
 uhr(); setInterval(uhr, 1000);
 
