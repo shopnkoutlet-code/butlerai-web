@@ -177,7 +177,7 @@ footer a { color: var(--leise); }
 <header>
   <div class="rahmen">
     <a class="marke" href="#">BUTLER AI</a>
-    <a class="kopf-link vor" href="#liste">Auf die Warteliste</a>
+    <a class="kopf-link vor" href="#liste">Kostenlose Leseprobe</a>
     <a class="kopf-link nach" href="https://payhip.com/b/UqmA0">Jetzt kaufen</a>
   </div>
 </header>
@@ -199,14 +199,16 @@ footer a { color: var(--leise); }
           <div><b id="u-x">–</b><span>SEK</span></div>
         </div>
         <p class="uhr-text vor" id="uhr-text">Bis zum Start in der Nacht vom 31. Oktober auf den 1. November.</p>
-        <form id="liste" class="liste-form vor" novalidate>
+        <p class="vor" style="margin:22px 0 10px;color:var(--hell)"><b>Kostenlose Leseprobe:</b> Kapitel 1 als PDF, sofort nach dem Bestätigen deiner E-Mail. Und zum Start am 1. November bekommst du das ganze Buch für <b>19 € statt 27 €</b>.</p>
+        <p class="nach" style="margin:26px 0 10px;color:var(--hell)">Erst reinlesen? <b>Kapitel 1 gratis als PDF.</b></p>
+        <form id="liste" class="liste-form" novalidate>
           <div class="zeile">
             <input id="f-name" name="VORNAME" type="text" placeholder="Vorname (freiwillig)" autocomplete="given-name">
             <input id="f-mail" name="EMAIL" type="email" placeholder="Deine E-Mail-Adresse" autocomplete="email" required>
           </div>
-          <label class="einwilligung"><input id="f-ok" type="checkbox" required> <span>Ja, ich möchte zum Start des E-Books und zu Butler AI per E-Mail informiert werden. Abmelden geht jederzeit mit einem Klick. Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
+          <label class="einwilligung"><input id="f-ok" type="checkbox" required> <span>Ja, schickt mir die kostenlose Leseprobe und informiert mich per E-Mail zum Start des E-Books und zu Butler AI. Abmelden geht jederzeit mit einem Klick. Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
           <input class="falle" id="f-falle" name="email_address_check" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button id="f-los" type="submit">Auf die Warteliste</button>
+          <button id="f-los" type="submit">Leseprobe holen</button>
           <p class="meldung" id="f-meldung" role="status"></p>
         </form>
       </div>
@@ -323,7 +325,7 @@ footer a { color: var(--leise); }
       <div>
         <div class="vor"><div class="etikett">Start am 1. November, 0:00 Uhr</div>
         <h2>Sei dabei, wenn es losgeht</h2>
-        <p class="einleitung" style="margin-bottom:0">Wer auf der Warteliste steht, bekommt um Mitternacht als Erstes die Nachricht mit dem Link zum E-Book.</p></div>
+        <p class="einleitung" style="margin-bottom:0">Hol dir jetzt Kapitel 1 gratis. Wer sich einträgt, bekommt um Mitternacht als Erstes den Link zum E-Book und zahlt 19 € statt 27 €.</p></div>
         <div class="nach"><div class="etikett">Jetzt erhältlich</div>
         <h2>Bau dir heute Abend deinen Butler</h2>
         <p class="einleitung" style="margin-bottom:0">46 Seiten, 6 Vorlagen, ohne Programmieren. Sofort als PDF.</p></div>
@@ -332,9 +334,9 @@ footer a { color: var(--leise); }
       <form id="liste2" class="liste-form vor" novalidate>
         <div class="zeile">
           <input id="f2-mail" name="EMAIL" type="email" placeholder="Deine E-Mail-Adresse" autocomplete="email" required>
-          <button id="f2-los" type="submit">Eintragen</button>
+          <button id="f2-los" type="submit">Leseprobe holen</button>
         </div>
-        <label class="einwilligung"><input id="f2-ok" type="checkbox" required> <span>Ja, ich möchte zum Start informiert werden. Abmelden jederzeit. <a href="datenschutz.html">Datenschutz</a></span></label>
+        <label class="einwilligung"><input id="f2-ok" type="checkbox" required> <span>Ja, schickt mir die Leseprobe und informiert mich zum Start. Abmelden jederzeit. <a href="datenschutz.html">Datenschutz</a></span></label>
         <input class="falle" id="f2-falle" name="email_address_check" tabindex="-1" autocomplete="off" aria-hidden="true">
         <p class="meldung" id="f2-meldung" role="status"></p>
       </form>
@@ -387,7 +389,7 @@ function anmelden(form, mail, ok, falle, meldung, name) {
     daten.append("OPT_IN", "1"); daten.append("locale", "de"); daten.append("email_address_check", "");
     try {
       await fetch(BREVO_FORMULAR, { method: "POST", body: daten, mode: "no-cors" });
-      m.textContent = DOPPEL_OPT_IN ? "Fast geschafft: Bitte bestätige deine Adresse über den Link in der Mail, die gerade unterwegs ist." : "Du stehst auf der Warteliste. Am 1. November um 0 Uhr bekommst du als Erste:r Bescheid."; m.classList.add("gut");
+      m.textContent = DOPPEL_OPT_IN ? "Fast geschafft: Bestätige deine Adresse über den Link in der Mail, die gerade unterwegs ist. Danach lädst du die Leseprobe sofort herunter." : "Du stehst auf der Warteliste. Am 1. November um 0 Uhr bekommst du als Erste:r Bescheid."; m.classList.add("gut");
       form.reset();
     } catch (err) {
       m.textContent = "Das hat gerade nicht geklappt. Prüf deine Verbindung und versuch es noch einmal."; m.classList.add("schlecht");
