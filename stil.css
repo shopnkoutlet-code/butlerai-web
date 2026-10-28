@@ -66,3 +66,27 @@ footer .rahmen{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12p
 footer a{color:var(--leise)}
 @media (max-width:860px){.bereiche,.produkte{grid-template-columns:1fr}.schritte{grid-template-columns:1fr 1fr}section .rahmen{padding-block:48px}}
 @media (max-width:480px){.schritte{grid-template-columns:1fr}nav{gap:16px}}
+
+/* 28.10.: Shop mit Produktbildern und Kontakt */
+.shop-kopf{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:end}
+.kontakt-box p{font-size:15px}
+.produkt{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;align-items:start}
+.galerie{display:flex;flex-direction:column;gap:12px;min-width:0}
+.galerie .haupt{width:100%;height:auto;aspect-ratio:1200/733;object-fit:contain;background:#16171b;border:1px solid var(--linie);border-radius:18px}
+.daumen{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.daumen button{background:#16171b;border:1px solid var(--linie);border-radius:10px;padding:4px 4px 6px;cursor:pointer;color:var(--leise);font:inherit;font-size:11px;display:flex;flex-direction:column;gap:4px;align-items:center;min-width:0}
+.daumen button img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
+.daumen button[aria-pressed=true]{border-color:var(--gold);color:var(--hell)}
+.kaufen h2{font-size:clamp(30px,3.6vw,40px)}
+.formular{display:grid;gap:16px;max-width:620px}
+.formular label{display:grid;gap:6px;font-size:14px;color:var(--hell)}
+.formular input,.formular select,.formular textarea{font:inherit;font-size:16px;color:var(--hell);background:#16171b;border:1px solid rgba(217,192,139,.3);border-radius:10px;padding:12px 14px;width:100%}
+.formular textarea{min-height:150px;resize:vertical}
+.formular .zustimmung{color:var(--leise)}
+.liste-recht{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
+.liste-recht a.karte{text-decoration:none;color:var(--text)}
+.liste-recht a.karte:hover{border-color:var(--gold)}
+.liste-recht h3{margin:0 0 6px;font-size:26px}
+@media (max-width:860px){.shop-kopf,.produkt{grid-template-columns:1fr}.daumen{grid-template-columns:repeat(6,72px);overflow-x:auto;padding-bottom:4px}.liste-recht{grid-template-columns:1fr}}
+.nur-handy{display:none}
+@media (max-width:860px){.shop-kopf .kontakt-box{display:none}.nur-handy{display:block}}
