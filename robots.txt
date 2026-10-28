@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /probe/
 Disallow: /leseprobe.html
+Disallow: /danke-buch.html
 Disallow: /muster/
 
 Sitemap: https://butlerai.de/sitemap.xml

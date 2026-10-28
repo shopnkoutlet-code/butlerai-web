@@ -1,8 +1,9 @@
 // ---- Shop-Einstellungen: nur hier Links eintragen ----
-// "link" = Zahlungslink aus Qonto (Qonto-App > Zahlungslinks > wiederverwendbarer Link). Leer = Knopf zeigt "Kasse öffnet in Kürze".
-// Qonto-Zahlungslinks laufen nach 6 Monaten ab: dann neuen Link erstellen und hier ersetzen.
+// "link" = Stripe-Zahlungslink (Stripe > Zahlungslinks). Leer = Bestellung per Mail.
+// "aktion": Startpreis mit eigenem Link bis "bis"; danach gelten wieder preis und link.
 const PRODUKTE = {
-  "ebook-kompakt": { name: "Butler AI · Kompakt-Ausgabe (E-Book)", preis: 27, link: "", ab: "2026-11-01T00:00:00+01:00" },
+  "ebook-kompakt": { name: "Butler AI · Kompakt-Ausgabe (E-Book)", preis: 27, link: "", ab: "2026-11-01T00:00:00+01:00",
+                     aktion: { preis: 19, link: "https://buy.stripe.com/cNi6oG8q89VubJ4bv4aMU00", bis: "2026-11-15T00:00:00+01:00" } },
   "website-48":    { name: "NOVA ONE · Website in 48 Stunden",     preis: 249, link: "" },
 };
 const KONTAKT = "kontakt@butlerai.de";
@@ -10,10 +11,13 @@ const KONTAKT = "kontakt@butlerai.de";
 // ---- ab hier nichts ändern ----
 function euro(n) { return n.toLocaleString("de-DE") + " €"; }
 document.querySelectorAll("[data-produkt]").forEach((box) => {
-  const id = box.dataset.produkt, p = PRODUKTE[id]; if (!p) return;
+  const id = box.dataset.produkt, g = PRODUKTE[id]; if (!g) return;
+  const aktiv = g.aktion && Date.now() < Date.parse(g.aktion.bis);
+  const p = aktiv ? Object.assign({}, g, { preis: g.aktion.preis, link: g.aktion.link, statt: g.preis }) : g;
   const knopf = box.querySelector(".kauf"), haken = box.querySelector("input[type=checkbox]"), info = box.querySelector(".kasse-info");
   const offen = !p.ab || Date.now() >= Date.parse(p.ab) || /vorschau=start/.test(location.search);
-  const preisFeld = box.querySelector("[data-preis]"); if (preisFeld) preisFeld.textContent = euro(p.preis);
+  const preisFeld = box.querySelector("[data-preis]"); if (preisFeld) preisFeld.textContent = euro(p.preis) + (p.statt ? " statt " + euro(p.statt) : "");
+  const aktionFeld = box.querySelector("[data-aktion]"); if (aktionFeld && p.statt) aktionFeld.textContent = "Startpreis bis 14. November";
   function stand() {
     if (!offen) { knopf.textContent = "Erhältlich ab 1. November"; knopf.disabled = true; if (haken) haken.disabled = true; return; }
     if (!p.link) {                                   // Kasse noch nicht freigeschaltet: Bestellung per Mail
