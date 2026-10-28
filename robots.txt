@@ -5,3 +5,4 @@ Disallow: /danke-buch.html
 Disallow: /muster/
 
 Sitemap: https://butlerai.de/sitemap.xml
+Disallow: /website.html

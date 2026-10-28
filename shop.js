@@ -2,9 +2,8 @@
 // "link" = Stripe-Zahlungslink (Stripe > Zahlungslinks). Leer = Bestellung per Mail.
 // "aktion": Startpreis mit eigenem Link bis "bis"; danach gelten wieder preis und link.
 const PRODUKTE = {
-  "ebook-kompakt": { name: "Butler AI · Kompakt-Ausgabe (E-Book)", preis: 27, link: "", ab: "2026-11-01T00:00:00+01:00",
+  "ebook-kompakt": { name: "Butler AI · Kompakt-Ausgabe (E-Book)", preis: 27, link: "",
                      aktion: { preis: 19, link: "https://buy.stripe.com/cNi6oG8q89VubJ4bv4aMU00", bis: "2026-11-15T00:00:00+01:00" } },
-  "website-48":    { name: "NOVA ONE · Website in 48 Stunden",     preis: 249, link: "" },
 };
 const KONTAKT = "kontakt@butlerai.de";
 
