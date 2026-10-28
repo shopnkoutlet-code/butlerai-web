@@ -3,7 +3,8 @@
 // "aktion": Startpreis mit eigenem Link bis "bis"; danach gelten wieder preis und link.
 const PRODUKTE = {
   "ebook-kompakt": { name: "Butler AI · Kompakt-Ausgabe (E-Book)", preis: 27, link: "",
-                     aktion: { preis: 19, link: "https://buy.stripe.com/cNi6oG8q89VubJ4bv4aMU00", bis: "2026-11-15T00:00:00+01:00" } },
+                     ds24: "https://www.checkout-ds24.com/product/756219",          // Digistore24 (PayPal, Klarna); Gutschein START19 gilt bis 14.11.
+                     aktion: { preis: 19, link: "https://buy.stripe.com/cNi6oG8q89VubJ4bv4aMU00", ds24: "https://www.checkout-ds24.com/product/756219?voucher=START19", bis: "2026-11-15T00:00:00+01:00" } },
 };
 const KONTAKT = "kontakt@butlerai.de";
 
@@ -13,6 +14,7 @@ document.querySelectorAll("[data-produkt]").forEach((box) => {
   const id = box.dataset.produkt, g = PRODUKTE[id]; if (!g) return;
   const aktiv = g.aktion && Date.now() < Date.parse(g.aktion.bis);
   const p = aktiv ? Object.assign({}, g, { preis: g.aktion.preis, link: g.aktion.link, statt: g.preis }) : g;
+  const ds = box.querySelector(".ds24-link"); if (ds && (p.ds24 || g.ds24)) { ds.href = aktiv && g.aktion.ds24 ? g.aktion.ds24 : g.ds24; ds.addEventListener("click", function () { if (window.baZaehle) window.baZaehle("kauf_klick"); }); }
   const knopf = box.querySelector(".kauf"), haken = box.querySelector("input[type=checkbox]"), info = box.querySelector(".kasse-info");
   const offen = !p.ab || Date.now() >= Date.parse(p.ab) || /vorschau=start/.test(location.search);
   const preisFeld = box.querySelector("[data-preis]"); if (preisFeld) preisFeld.textContent = euro(p.preis) + (p.statt ? " statt " + euro(p.statt) : "");
