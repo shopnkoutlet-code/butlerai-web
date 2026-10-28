@@ -31,7 +31,8 @@ document.querySelectorAll("[data-produkt]").forEach((box) => {
   if (haken) haken.addEventListener("change", stand);
   knopf.addEventListener("click", () => {
     if (knopf.disabled) return;
-    if (p.link) { location.href = p.link; return; }
+    if (window.baZaehle) window.baZaehle(p.link ? "kauf_klick" : "bestell_mail");
+    if (p.link) { setTimeout(function () { location.href = p.link; }, 150); return; }
     location.href = "mailto:" + KONTAKT + "?subject=" + encodeURIComponent("Bestellung: " + p.name) +
       "&body=" + encodeURIComponent("Hallo,\n\nich möchte bestellen: " + p.name + " (" + euro(p.preis) + ").\n\nName:\nFirma (falls vorhanden):\n\nBitte schickt mir den Zahlungslink.\n");
   });
