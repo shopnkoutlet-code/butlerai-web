@@ -170,6 +170,15 @@ footer a { color: var(--leise); }
 .fragen details[open] summary::after { content: "–"; }
 .fragen p { margin: 10px 0 0; font-size: 16px; max-width: 760px; }
 @media (max-width: 860px) { .fakten { grid-template-columns: 1fr; } }
+
+/* Blick ins Buch (28.10.) */
+.einblick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+.einblick figure { margin: 0; background: #16171b; border: 1px solid var(--linie); border-radius: 16px; overflow: hidden; min-width: 0; }
+.einblick figure.gross { grid-column: 1 / -1; }
+.einblick img { display: block; width: 100%; height: auto; }
+.einblick figure.gross img { max-height: 420px; object-fit: contain; margin: 0 auto; }
+.einblick figcaption { font-size: 14px; color: var(--text); padding: 10px 14px 12px; }
+@media (max-width: 860px) { .einblick figure.gross img { max-height: 240px; } .einblick { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .einblick figcaption { font-size: 13px; padding: 8px 10px 10px; } }
 </style>
 </head>
 <body>
@@ -255,6 +264,21 @@ footer a { color: var(--leise); }
         <li><div><b>Kanäle, über die du ihn erreichst</b><span>Vom Handy aus, und er meldet sich von selbst, wenn es wichtig ist.</span></div></li>
         <li><div><b>Betrieb, Kosten und Vertrauen</b><span>Damit er läuft, bezahlbar bleibt und du ihm vertrauen kannst.</span></div></li>
       </ol>
+    </div>
+  </section>
+
+  <section class="band" id="einblick">
+    <div class="rahmen">
+      <div class="etikett">Blick ins Buch</div>
+      <h2>So sieht das E-Book aus</h2>
+      <div class="einblick">
+        <figure class="gross"><img src="bilder/produkt-ueberblick.webp" alt="Cover und aufgefächerte Seiten der Kompakt-Ausgabe" width="1200" height="733" loading="lazy"><figcaption>46 Seiten im A5-Format, als PDF</figcaption></figure>
+        <figure><img src="bilder/produkt-inhalt.webp" alt="Inhaltsverzeichnis mit 8 Kapiteln und Anhang" width="900" height="900" loading="lazy"><figcaption>8 Kapitel, Schritt für Schritt</figcaption></figure>
+        <figure><img src="bilder/produkt-vorlagen.webp" alt="Anhang mit Vorlagen zum Kopieren, hier die Regeldatei" width="900" height="900" loading="lazy"><figcaption>6 Vorlagen zum Kopieren</figcaption></figure>
+        <figure><img src="bilder/produkt-checkliste.webp" alt="Checkliste am Ende von Kapitel 5" width="900" height="900" loading="lazy"><figcaption>Checklisten zum Abhaken</figcaption></figure>
+        <figure><img src="bilder/produkt-uebung.webp" alt="Übung am Ende von Kapitel 2" width="900" height="900" loading="lazy"><figcaption>Eine Übung pro Kapitel</figcaption></figure>
+      </div>
+      <p style="margin-top:28px"><a class="kauf nach" href="shop.html#ebook">Jetzt kaufen · 19 €</a></p>
     </div>
   </section>
 
