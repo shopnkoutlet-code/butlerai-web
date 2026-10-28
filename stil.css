@@ -87,6 +87,7 @@ footer a{color:var(--leise)}
 .liste-recht a.karte{text-decoration:none;color:var(--text)}
 .liste-recht a.karte:hover{border-color:var(--gold)}
 .liste-recht h3{margin:0 0 6px;font-size:26px}
-@media (max-width:860px){.shop-kopf,.produkt{grid-template-columns:1fr}.daumen{grid-template-columns:repeat(6,72px);overflow-x:auto;padding-bottom:4px}.liste-recht{grid-template-columns:1fr}}
+@media (max-width:860px){.shop-kopf,.produkt{grid-template-columns:minmax(0,1fr)}.produkt>*{min-width:0;max-width:100%}.galerie .haupt{max-width:100%;max-height:260px}.daumen{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.daumen button{font-size:12px}.daumen button img{aspect-ratio:4/3}.liste-recht{grid-template-columns:1fr}}
+img{max-width:100%}html,body{overflow-x:hidden}
 .nur-handy{display:none}
 @media (max-width:860px){.shop-kopf .kontakt-box{display:none}.nur-handy{display:block}}
